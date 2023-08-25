@@ -26,4 +26,6 @@ public class PriceHistory {
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private LocalDateTime created;
 
+    @Column(name = "post_id")
+    private int postId;
 }
