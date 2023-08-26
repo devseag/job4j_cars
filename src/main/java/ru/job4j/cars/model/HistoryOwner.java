@@ -18,14 +18,14 @@ public class HistoryOwner {
     @Include
     private int id;
 
+    private LocalDateTime startAt = LocalDateTime.now();
+
+    private LocalDateTime endAt = LocalDateTime.now();
+
     @Column(name = "car_id")
     private int carId;
 
     @Column(name = "driver_id")
     private int driverId;
-
-    private LocalDateTime startAt = LocalDateTime.now();
-
-    private LocalDateTime endAt = LocalDateTime.now();
 
 }

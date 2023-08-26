@@ -1,7 +1,8 @@
 package ru.job4j.cars.model;
 
-import javax.persistence.*;
 import lombok.*;
+
+import javax.persistence.*;
 import lombok.EqualsAndHashCode.Include;
 
 @Data
@@ -9,16 +10,17 @@ import lombok.EqualsAndHashCode.Include;
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "driver")
-public class Driver {
-
+@Table(name = "participates")
+public class Participate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Include
     private int id;
 
-    private String name;
+    @Column(name = "post_id")
+    private int postId;
 
     @Column(name = "user_id")
     private int userId;
+
 }

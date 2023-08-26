@@ -1,31 +1,27 @@
 package ru.job4j.cars.model;
 
-import java.time.LocalDateTime;
+import java.time.*;
 import javax.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import org.springframework.format.annotation.DateTimeFormat;
+import lombok.*;
+import lombok.EqualsAndHashCode.Include;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "price_history")
-@Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class PriceHistory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
+    @Include
     private int id;
 
-    @EqualsAndHashCode.Include
-    private long before;
+    private int before;
 
-    @EqualsAndHashCode.Include
-    private long after;
+    private int after;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-    private LocalDateTime created;
+    private LocalDateTime created = LocalDateTime.now();
 
-    @Column(name = "post_id")
-    private int postId;
 }

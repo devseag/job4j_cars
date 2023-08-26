@@ -3,8 +3,6 @@ package ru.job4j.cars.repository;
 import lombok.AllArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -13,6 +11,7 @@ import java.util.function.Function;
 
 @AllArgsConstructor
 public class CrudRepository {
+
     private final SessionFactory sf;
 
     public void run(Consumer<Session> command) {
@@ -67,16 +66,16 @@ public class CrudRepository {
     }
 
     public <T> T tx(Function<Session, T> command) {
-        Session session = sf.openSession();
-        Transaction transaction = null;
+        var session = sf.openSession();
         try {
-            transaction = session.beginTransaction();
+            var tx = session.beginTransaction();
             T rsl = command.apply(session);
-            transaction.commit();
+            tx.commit();
             return rsl;
         } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
+            var tx = session.getTransaction();
+            if (tx.isActive()) {
+                tx.rollback();
             }
             throw e;
         } finally {
